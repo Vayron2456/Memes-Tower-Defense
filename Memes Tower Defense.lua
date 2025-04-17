@@ -28,7 +28,7 @@ local Window = Rayfield:CreateWindow({
       Subtitle = "Key System",
       Note = "Please Join The Discord: discord.gg/pRW5WHHwpz", -- Use this to tell the user how to get a key
       FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = false, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
       GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
       Key = {"Memes Tower Defense!!!!"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
    }
@@ -148,5 +148,58 @@ local Button = Tab:CreateButton({
 
 game:GetService("ReplicatedStorage"):WaitForChild("Functions", 9e9):WaitForChild("InteractShop", 9e9):InvokeServer(unpack(args))
 print("Bought Heavy if enough.")
+   end,
+})
+
+local Tab = Window:CreateTab("Auto Skip Wave:", 4483362458) 
+
+local Section = Tab:CreateSection("Auto Skip Waves:")
+
+local Toggle = Tab:CreateToggle({
+   Name = "Skip Wave: Yes?",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   local args = {
+    [1] = "Yes";
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events", 9e9):WaitForChild("VoteForSkip", 9e9):FireServer(unpack(args))
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = "Skip Wave: No?",
+   CurrentValue = false,
+   Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   local args = {
+    [1] = "No";
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events", 9e9):WaitForChild("VoteForSkip", 9e9):FireServer(unpack(args))
+   end,
+})
+
+local Toggle = Tab:CreateToggle({
+   Name = "Auto Ready?",
+   CurrentValue = false,
+   Flag = "Ready?", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   local args = {
+    [1] = 1;
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events", 9e9):WaitForChild("VoteStartGame", 9e9):FireServer(unpack(args))
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Leave The Game:",
+   Callback = function()
+   local args = {}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events", 9e9):WaitForChild("ExitGame", 9e9):FireServer(unpack(args))
+   print("Leaved The Game:")
    end,
 })
